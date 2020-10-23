@@ -1,0 +1,12 @@
+namespace com.linkedin.identity
+
+/**
+ * Metadata for a corp group
+ */
+record AdevintaGroup includes AdevintaGroupKey {
+
+  /**
+   * Information of the corp group
+   */
+  info: optional AdevintaGroupInfo
+}

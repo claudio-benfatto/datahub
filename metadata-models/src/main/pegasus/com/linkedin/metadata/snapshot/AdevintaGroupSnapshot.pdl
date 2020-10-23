@@ -1,0 +1,20 @@
+namespace com.linkedin.metadata.snapshot
+
+import com.linkedin.common.AdevintaGroupUrn
+import com.linkedin.metadata.aspect.AdevintaGroupAspect
+
+/**
+ * A metadata snapshot for a specific AdevintaGroup entity.
+ */
+record AdevintaGroupSnapshot {
+
+  /**
+   * URN for the entity the metadata snapshot is associated with.
+   */
+  urn: AdevintaGroupUrn
+
+  /**
+   * The list of metadata aspects associated with the LdapUser. Depending on the use case, this can either be all, or a selection, of supported aspects.
+   */
+  aspects: array[AdevintaGroupAspect]
+}

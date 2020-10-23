@@ -1,19 +1,19 @@
 {
   "models" : [ {
     "type" : "typeref",
-    "name" : "CorpGroupUrn",
+    "name" : "AdevintaGroupUrn",
     "namespace" : "com.linkedin.common",
-    "doc" : "Corporate group's AD/LDAP login",
+    "doc" : "Adevinta group's AD/LDAP login",
     "ref" : "string",
     "java" : {
-      "class" : "com.linkedin.common.urn.CorpGroupUrn"
+      "class" : "com.linkedin.common.urn.AdevintaGroupUrn"
     },
     "validate" : {
       "com.linkedin.common.validator.TypedUrnValidator" : {
         "accessible" : true,
         "constructable" : true,
-        "doc" : "Corporate group's AD/LDAP login",
-        "entityType" : "corpGroup",
+        "doc" : "Adevinta group's AD/LDAP login",
+        "entityType" : "adevintaGroup",
         "fields" : [ {
           "doc" : "The name of the AD/LDAP group.",
           "maxLength" : 64,
@@ -21,7 +21,7 @@
           "type" : "string"
         } ],
         "maxLength" : 81,
-        "name" : "CorpGroup",
+        "name" : "AdevintaGroup",
         "namespace" : "li",
         "owners" : [ "urn:li:corpuser:fbar", "urn:li:corpuser:bfoo" ],
         "owningTeam" : "urn:li:internalTeam:security"
@@ -70,13 +70,13 @@
     }
   }, {
     "type" : "record",
-    "name" : "CorpGroup",
+    "name" : "AdevintaGroup",
     "namespace" : "com.linkedin.identity",
     "doc" : "Metadata for a corp group",
     "include" : [ {
       "type" : "record",
-      "name" : "CorpGroupKey",
-      "doc" : "Key for CorpGroup resource",
+      "name" : "AdevintaGroupKey",
+      "doc" : "Key for AdevintaGroup resource",
       "fields" : [ {
         "name" : "name",
         "type" : "string",
@@ -93,7 +93,7 @@
       "name" : "info",
       "type" : {
         "type" : "record",
-        "name" : "CorpGroupInfo",
+        "name" : "AdevintaGroupInfo",
         "doc" : "group of corpUser, it may contains nested group",
         "fields" : [ {
           "name" : "email",
@@ -117,23 +117,23 @@
           "name" : "groups",
           "type" : {
             "type" : "array",
-            "items" : "com.linkedin.common.CorpGroupUrn"
+            "items" : "com.linkedin.common.AdevintaGroupUrn"
           },
           "doc" : "List of groups in this group."
         } ],
         "Aspect" : {
-          "EntityUrns" : [ "com.linkedin.common.CorpGroupUrn" ]
+          "EntityUrns" : [ "com.linkedin.common.AdevintaGroupUrn" ]
         }
       },
       "doc" : "Information of the corp group",
       "optional" : true
     } ]
-  }, "com.linkedin.identity.CorpGroupInfo", "com.linkedin.identity.CorpGroupKey", {
+  }, "com.linkedin.identity.AdevintaGroupInfo", "com.linkedin.identity.AdevintaGroupKey", {
     "type" : "typeref",
-    "name" : "CorpGroupAspect",
+    "name" : "AdevintaGroupAspect",
     "namespace" : "com.linkedin.metadata.aspect",
-    "doc" : "A union of all supported metadata aspects for a CorpGroup",
-    "ref" : [ "com.linkedin.identity.CorpGroupInfo" ]
+    "doc" : "A union of all supported metadata aspects for a AdevintaGroup",
+    "ref" : [ "com.linkedin.identity.AdevintaGroupInfo" ]
   }, {
     "type" : "record",
     "name" : "AggregationMetadata",
@@ -288,18 +288,18 @@
     } ]
   }, "com.linkedin.metadata.restli.BackfillResultEntity", {
     "type" : "record",
-    "name" : "CorpGroupSnapshot",
+    "name" : "AdevintaGroupSnapshot",
     "namespace" : "com.linkedin.metadata.snapshot",
-    "doc" : "A metadata snapshot for a specific CorpGroup entity.",
+    "doc" : "A metadata snapshot for a specific AdevintaGroup entity.",
     "fields" : [ {
       "name" : "urn",
-      "type" : "com.linkedin.common.CorpGroupUrn",
+      "type" : "com.linkedin.common.AdevintaGroupUrn",
       "doc" : "URN for the entity the metadata snapshot is associated with."
     }, {
       "name" : "aspects",
       "type" : {
         "type" : "array",
-        "items" : "com.linkedin.metadata.aspect.CorpGroupAspect"
+        "items" : "com.linkedin.metadata.aspect.AdevintaGroupAspect"
       },
       "doc" : "The list of metadata aspects associated with the LdapUser. Depending on the use case, this can either be all, or a selection, of supported aspects."
     } ]
@@ -314,15 +314,15 @@
     }
   } ],
   "schema" : {
-    "name" : "corpGroups",
+    "name" : "adevintaGroups",
     "namespace" : "com.linkedin.identity",
-    "path" : "/corpGroups",
-    "schema" : "com.linkedin.identity.CorpGroup",
-    "doc" : "generated from: com.linkedin.metadata.resources.identity.CorpGroups",
+    "path" : "/adevintaGroups",
+    "schema" : "com.linkedin.identity.AdevintaGroup",
+    "doc" : "generated from: com.linkedin.metadata.resources.identity.AdevintaGroups",
     "collection" : {
       "identifier" : {
-        "name" : "corpGroup",
-        "type" : "com.linkedin.identity.CorpGroupKey",
+        "name" : "adevintaGroup",
+        "type" : "com.linkedin.identity.AdevintaGroupKey",
         "params" : "com.linkedin.restli.common.EmptyRecord"
       },
       "supports" : [ "batch_get", "get", "get_all" ],
@@ -417,16 +417,16 @@
           "type" : "{ \"type\" : \"array\", \"items\" : \"string\" }",
           "optional" : true
         } ],
-        "returns" : "com.linkedin.metadata.snapshot.CorpGroupSnapshot"
+        "returns" : "com.linkedin.metadata.snapshot.AdevintaGroupSnapshot"
       }, {
         "name" : "ingest",
         "parameters" : [ {
           "name" : "snapshot",
-          "type" : "com.linkedin.metadata.snapshot.CorpGroupSnapshot"
+          "type" : "com.linkedin.metadata.snapshot.AdevintaGroupSnapshot"
         } ]
       } ],
       "entity" : {
-        "path" : "/corpGroups/{corpGroup}"
+        "path" : "/adevintaGroups/{adevintaGroup}"
       }
     }
   }

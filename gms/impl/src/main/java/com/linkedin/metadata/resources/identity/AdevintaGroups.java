@@ -1,10 +1,10 @@
 package com.linkedin.metadata.resources.identity;
 
-import com.linkedin.common.urn.CorpGroupUrn;
-import com.linkedin.identity.CorpGroup;
-import com.linkedin.identity.CorpGroupInfo;
-import com.linkedin.identity.CorpGroupKey;
-import com.linkedin.metadata.aspect.CorpGroupAspect;
+import com.linkedin.common.urn.AdevintaGroupUrn;
+import com.linkedin.identity.AdevintaGroup;
+import com.linkedin.identity.AdevintaGroupInfo;
+import com.linkedin.identity.AdevintaGroupKey;
+import com.linkedin.metadata.aspect.AdevintaGroupAspect;
 import com.linkedin.metadata.dao.BaseLocalDAO;
 import com.linkedin.metadata.dao.BaseSearchDAO;
 import com.linkedin.metadata.dao.utils.ModelUtils;
@@ -14,8 +14,8 @@ import com.linkedin.metadata.query.SearchResultMetadata;
 import com.linkedin.metadata.query.SortCriterion;
 import com.linkedin.metadata.restli.BackfillResult;
 import com.linkedin.metadata.restli.BaseSearchableEntityResource;
-import com.linkedin.metadata.search.CorpGroupDocument;
-import com.linkedin.metadata.snapshot.CorpGroupSnapshot;
+import com.linkedin.metadata.search.AdevintaGroupDocument;
+import com.linkedin.metadata.snapshot.AdevintaGroupSnapshot;
 import com.linkedin.parseq.Task;
 import com.linkedin.restli.common.ComplexResourceKey;
 import com.linkedin.restli.common.EmptyRecord;
@@ -41,39 +41,39 @@ import javax.inject.Named;
 import static com.linkedin.metadata.restli.RestliConstants.*;
 
 
-@RestLiCollection(name = "corpGroups", namespace = "com.linkedin.identity", keyName = "corpGroup")
-public final class CorpGroups extends BaseSearchableEntityResource<
+@RestLiCollection(name = "adevintaGroups", namespace = "com.linkedin.identity", keyName = "adevintaGroup")
+public final class AdevintaGroups extends BaseSearchableEntityResource<
     // @formatter:off
-    ComplexResourceKey<CorpGroupKey, EmptyRecord>,
-    CorpGroup,
-    CorpGroupUrn,
-    CorpGroupSnapshot,
-    CorpGroupAspect,
-    CorpGroupDocument> {
+    AdevintaGroupKey,
+    AdevintaGroup,
+    AdevintaGroupUrn,
+    AdevintaGroupSnapshot,
+    AdevintaGroupAspect,
+    AdevintaGroupDocument> {
     // @formatter:on
 
   @Inject
-  @Named("corpGroupDao")
-  private BaseLocalDAO<CorpGroupAspect, CorpGroupUrn> _localDAO;
+  @Named("adevintaGroupDao")
+  private BaseLocalDAO<AdevintaGroupAspect, AdevintaGroupUrn> _localDAO;
 
   @Inject
-  @Named("corpGroupSearchDAO")
+  @Named("adevintaGroupSearchDAO")
   private BaseSearchDAO _esSearchDAO;
 
-  public CorpGroups() {
-    super(CorpGroupSnapshot.class, CorpGroupAspect.class);
+  public AdevintaGroups() {
+    super(AdevintaGroupSnapshot.class, AdevintaGroupAspect.class);
   }
 
   @Override
   @Nonnull
-  protected BaseLocalDAO<CorpGroupAspect, CorpGroupUrn> getLocalDAO() {
+  protected BaseLocalDAO<AdevintaGroupAspect, AdevintaGroupUrn> getLocalDAO() {
     return _localDAO;
   }
 
   @Override
   @Nonnull
-  protected CorpGroupUrn createUrnFromString(@Nonnull String urnString) throws Exception {
-    return CorpGroupUrn.deserialize(urnString);
+  protected AdevintaGroupUrn createUrnFromString(@Nonnull String urnString) throws Exception {
+    return AdevintaGroupUrn.deserialize(urnString);
   }
 
   @Override
@@ -84,23 +84,23 @@ public final class CorpGroups extends BaseSearchableEntityResource<
 
   @Override
   @Nonnull
-  protected CorpGroupUrn toUrn(@Nonnull ComplexResourceKey<CorpGroupKey, EmptyRecord> corpGroupKey) {
-    return new CorpGroupUrn(corpGroupKey.getKey().getName());
+  protected AdevintaGroupUrn toUrn(@Nonnull AdevintaGroupKey adevintaGroupKey) {
+    return new AdevintaGroupUrn(adevintaGroupKey.getName());
   }
 
   @Override
   @Nonnull
-  protected ComplexResourceKey<CorpGroupKey, EmptyRecord> toKey(@Nonnull CorpGroupUrn urn) {
-    return new ComplexResourceKey<>(new CorpGroupKey().setName(urn.getGroupNameEntity()), new EmptyRecord());
+  protected AdevintaGroupKey toKey(@Nonnull AdevintaGroupUrn urn) {
+    return new AdevintaGroupKey().setName(urn.getGroupNameEntity());
   }
 
   @Override
   @Nonnull
-  protected CorpGroup toValue(@Nonnull CorpGroupSnapshot snapshot) {
-    final CorpGroup value = new CorpGroup().setName(snapshot.getUrn().getGroupNameEntity());
+  protected AdevintaGroup toValue(@Nonnull AdevintaGroupSnapshot snapshot) {
+    final AdevintaGroup value = new AdevintaGroup().setName(snapshot.getUrn().getGroupNameEntity());
     ModelUtils.getAspectsFromSnapshot(snapshot).forEach(aspect -> {
-      if (aspect instanceof CorpGroupInfo) {
-        value.setInfo(CorpGroupInfo.class.cast(aspect));
+      if (aspect instanceof AdevintaGroupInfo) {
+        value.setInfo(AdevintaGroupInfo.class.cast(aspect));
       }
     });
     return value;
@@ -108,18 +108,18 @@ public final class CorpGroups extends BaseSearchableEntityResource<
 
   @Override
   @Nonnull
-  protected CorpGroupSnapshot toSnapshot(@Nonnull CorpGroup corpGroup, @Nonnull CorpGroupUrn urn) {
-    final List<CorpGroupAspect> aspects = new ArrayList<>();
-    if (corpGroup.hasInfo()) {
-      aspects.add(ModelUtils.newAspectUnion(CorpGroupAspect.class, corpGroup.getInfo()));
+  protected AdevintaGroupSnapshot toSnapshot(@Nonnull AdevintaGroup adevintaGroup, @Nonnull AdevintaGroupUrn urn) {
+    final List<AdevintaGroupAspect> aspects = new ArrayList<>();
+    if (adevintaGroup.hasInfo()) {
+      aspects.add(ModelUtils.newAspectUnion(AdevintaGroupAspect.class, adevintaGroup.getInfo()));
     }
-    return ModelUtils.newSnapshot(CorpGroupSnapshot.class, urn, aspects);
+    return ModelUtils.newSnapshot(AdevintaGroupSnapshot.class, urn, aspects);
   }
 
   @RestMethod.Get
   @Override
   @Nonnull
-  public Task<CorpGroup> get(@Nonnull ComplexResourceKey<CorpGroupKey, EmptyRecord> key,
+  public Task<AdevintaGroup> get(@Nonnull ComplexResourceKey<AdevintaGroupKey, EmptyRecord> key,
       @QueryParam(PARAM_ASPECTS) @Optional @Nullable String[] aspectNames) {
     return super.get(key, aspectNames);
   }
@@ -127,15 +127,15 @@ public final class CorpGroups extends BaseSearchableEntityResource<
   @RestMethod.BatchGet
   @Override
   @Nonnull
-  public Task<Map<ComplexResourceKey<CorpGroupKey, EmptyRecord>, CorpGroup>> batchGet(
-      @Nonnull Set<ComplexResourceKey<CorpGroupKey, EmptyRecord>> keys,
+  public Task<Map<ComplexResourceKey<AdevintaGroupKey, EmptyRecord>, AdevintaGroup>> batchGet(
+      @Nonnull Set<ComplexResourceKey<AdevintaGroupKey, EmptyRecord>> keys,
       @QueryParam(PARAM_ASPECTS) @Optional @Nullable String[] aspectNames) {
     return super.batchGet(keys, aspectNames);
   }
 
   @RestMethod.GetAll
   @Nonnull
-  public Task<List<CorpGroup>> getAll(@PagingContextParam @Nonnull PagingContext pagingContext,
+  public Task<List<AdevintaGroup>> getAll(@PagingContextParam @Nonnull PagingContext pagingContext,
       @QueryParam(PARAM_ASPECTS) @Optional @Nullable String[] aspectNames,
       @QueryParam(PARAM_FILTER) @Optional @Nullable Filter filter,
       @QueryParam(PARAM_SORT) @Optional @Nullable SortCriterion sortCriterion) {
@@ -145,7 +145,7 @@ public final class CorpGroups extends BaseSearchableEntityResource<
   @Finder(FINDER_SEARCH)
   @Override
   @Nonnull
-  public Task<CollectionResult<CorpGroup, SearchResultMetadata>> search(@QueryParam(PARAM_INPUT) @Nonnull String input,
+  public Task<CollectionResult<AdevintaGroup, SearchResultMetadata>> search(@QueryParam(PARAM_INPUT) @Nonnull String input,
       @QueryParam(PARAM_ASPECTS) @Optional @Nullable String[] aspectNames,
       @QueryParam(PARAM_FILTER) @Optional @Nullable Filter filter,
       @QueryParam(PARAM_SORT) @Optional @Nullable SortCriterion sortCriterion,
@@ -165,14 +165,14 @@ public final class CorpGroups extends BaseSearchableEntityResource<
   @Action(name = ACTION_INGEST)
   @Override
   @Nonnull
-  public Task<Void> ingest(@ActionParam(PARAM_SNAPSHOT) @Nonnull CorpGroupSnapshot snapshot) {
+  public Task<Void> ingest(@ActionParam(PARAM_SNAPSHOT) @Nonnull AdevintaGroupSnapshot snapshot) {
     return super.ingest(snapshot);
   }
 
   @Action(name = ACTION_GET_SNAPSHOT)
   @Override
   @Nonnull
-  public Task<CorpGroupSnapshot> getSnapshot(@ActionParam(PARAM_URN) @Nonnull String urnString,
+  public Task<AdevintaGroupSnapshot> getSnapshot(@ActionParam(PARAM_URN) @Nonnull String urnString,
       @ActionParam(PARAM_ASPECTS) @Optional @Nullable String[] aspectNames) {
     return super.getSnapshot(urnString, aspectNames);
   }

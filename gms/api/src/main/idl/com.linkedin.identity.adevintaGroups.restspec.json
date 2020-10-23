@@ -1,13 +1,13 @@
 {
-  "name" : "corpGroups",
+  "name" : "adevintaGroups",
   "namespace" : "com.linkedin.identity",
-  "path" : "/corpGroups",
-  "schema" : "com.linkedin.identity.CorpGroup",
-  "doc" : "generated from: com.linkedin.metadata.resources.identity.CorpGroups",
+  "path" : "/adevintaGroups",
+  "schema" : "com.linkedin.identity.AdevintaGroup",
+  "doc" : "generated from: com.linkedin.metadata.resources.identity.AdevintaGroups",
   "collection" : {
     "identifier" : {
-      "name" : "corpGroup",
-      "type" : "com.linkedin.identity.CorpGroupKey",
+      "name" : "adevintaGroup",
+      "type" : "com.linkedin.identity.AdevintaGroupKey",
       "params" : "com.linkedin.restli.common.EmptyRecord"
     },
     "supports" : [ "batch_get", "get", "get_all" ],
@@ -102,16 +102,16 @@
         "type" : "{ \"type\" : \"array\", \"items\" : \"string\" }",
         "optional" : true
       } ],
-      "returns" : "com.linkedin.metadata.snapshot.CorpGroupSnapshot"
+      "returns" : "com.linkedin.metadata.snapshot.AdevintaGroupSnapshot"
     }, {
       "name" : "ingest",
       "parameters" : [ {
         "name" : "snapshot",
-        "type" : "com.linkedin.metadata.snapshot.CorpGroupSnapshot"
+        "type" : "com.linkedin.metadata.snapshot.AdevintaGroupSnapshot"
       } ]
     } ],
     "entity" : {
-      "path" : "/corpGroups/{corpGroup}"
+      "path" : "/adevintaGroups/{adevintaGroup}"
     }
   }
 }
