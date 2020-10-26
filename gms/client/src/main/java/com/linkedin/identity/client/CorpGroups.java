@@ -16,13 +16,11 @@ import com.linkedin.r2.RemoteInvocationException;
 import com.linkedin.restli.client.BatchGetEntityRequest;
 import com.linkedin.restli.client.Client;
 import com.linkedin.restli.client.GetRequest;
-import com.linkedin.restli.client.GetAllRequest;
 import com.linkedin.restli.common.CollectionResponse;
 import com.linkedin.restli.common.ComplexResourceKey;
 import com.linkedin.restli.common.EmptyRecord;
 import java.util.Map;
 import java.util.Set;
-import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -74,38 +72,6 @@ public class CorpGroups extends BaseSearchableClient<CorpGroup> {
             entry -> getUrnFromKey(entry.getKey()),
             entry -> entry.getValue().getEntity())
         );
-  }
-
-    /**
-   * Get all {@link CorpUser} models of the corp users
-   *
-   * @param start offset to start
-   * @param count number of max {@link CorpUser}s to return
-   * @return {@link CorpUser} models of the corp user
-   * @throws RemoteInvocationException
-   */
-  @Nonnull
-  public List<CorpGroup> getAll(int start, int count)
-      throws RemoteInvocationException {
-    final GetAllRequest<CorpGroup> getAllRequest = CORP_GROUPS_REQUEST_BUILDERS.getAll()
-        .paginate(start, count)
-        .build();
-    return _client.sendRequest(getAllRequest).getResponseEntity().getElements();
-  }
-
-  /**
-   * Get all {@link CorpUser} models of the corp users
-   *
-   * @return {@link CorpUser} models of the corp user
-   * @throws RemoteInvocationException
-   */
-  @Nonnull
-  public List<CorpGroup> getAll()
-      throws RemoteInvocationException {
-    GetAllRequest<CorpGroup> getAllRequest = CORP_GROUPS_REQUEST_BUILDERS.getAll()
-        .paginate(0, 10000)
-        .build();
-    return _client.sendRequest(getAllRequest).getResponseEntity().getElements();
   }
 
   @Override

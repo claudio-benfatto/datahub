@@ -325,7 +325,7 @@
         "type" : "com.linkedin.identity.CorpGroupKey",
         "params" : "com.linkedin.restli.common.EmptyRecord"
       },
-      "supports" : [ "batch_get", "get", "get_all" ],
+      "supports" : [ "batch_get", "get" ],
       "methods" : [ {
         "method" : "get",
         "parameters" : [ {
@@ -340,22 +340,6 @@
           "type" : "{ \"type\" : \"array\", \"items\" : \"string\" }",
           "optional" : true
         } ]
-      }, {
-        "method" : "get_all",
-        "parameters" : [ {
-          "name" : "aspects",
-          "type" : "{ \"type\" : \"array\", \"items\" : \"string\" }",
-          "optional" : true
-        }, {
-          "name" : "filter",
-          "type" : "com.linkedin.metadata.query.Filter",
-          "optional" : true
-        }, {
-          "name" : "sort",
-          "type" : "com.linkedin.metadata.query.SortCriterion",
-          "optional" : true
-        } ],
-        "pagingSupported" : true
       } ],
       "finders" : [ {
         "name" : "search",

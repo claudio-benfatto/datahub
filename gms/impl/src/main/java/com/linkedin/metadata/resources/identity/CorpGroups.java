@@ -133,15 +133,6 @@ public final class CorpGroups extends BaseSearchableEntityResource<
     return super.batchGet(keys, aspectNames);
   }
 
-  @RestMethod.GetAll
-  @Nonnull
-  public Task<List<CorpGroup>> getAll(@PagingContextParam @Nonnull PagingContext pagingContext,
-      @QueryParam(PARAM_ASPECTS) @Optional @Nullable String[] aspectNames,
-      @QueryParam(PARAM_FILTER) @Optional @Nullable Filter filter,
-      @QueryParam(PARAM_SORT) @Optional @Nullable SortCriterion sortCriterion) {
-    return super.getAll(pagingContext, aspectNames, filter, sortCriterion);
-  }
-
   @Finder(FINDER_SEARCH)
   @Override
   @Nonnull
