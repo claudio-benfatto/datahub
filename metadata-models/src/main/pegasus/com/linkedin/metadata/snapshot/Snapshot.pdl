@@ -4,6 +4,8 @@ namespace com.linkedin.metadata.snapshot
  * A union of all supported metadata snapshot types.
  */
 typeref Snapshot = union[
+  AdevintaGroupSnapshot,
+  AdevintaOrganisationSnapshot,
   CorpGroupSnapshot,
   CorpUserSnapshot,
   DatasetSnapshot,

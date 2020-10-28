@@ -1,0 +1,19 @@
+namespace com.linkedin.metadata.entity
+
+import com.linkedin.common.AdevintaOrganisationUrn
+
+/**
+ * Data model for a AdevintaOrganisation entity(go/groupId)
+ */
+record AdevintaOrganisationEntity includes BaseEntity {
+
+  /**
+   * Urn for the Organisation
+   */
+  urn: AdevintaOrganisationUrn
+
+  /**
+   * name of the organisation, e.g. wherehows-dev, ask_metadata
+   */
+  name: optional string
+}

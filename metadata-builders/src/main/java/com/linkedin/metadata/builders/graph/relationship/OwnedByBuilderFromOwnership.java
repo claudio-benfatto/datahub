@@ -15,6 +15,7 @@ import static com.linkedin.metadata.dao.internal.BaseGraphWriterDAO.RemovalOptio
 public class OwnedByBuilderFromOwnership extends BaseRelationshipBuilder<Ownership> {
 
   private static final String CORPUSER_URN_TYPE = "corpuser";
+  private static final String ADEVINTA_ORG_URN_TYPE = "adevintaOrganisation";
 
   public OwnedByBuilderFromOwnership() {
     super(Ownership.class);
@@ -23,12 +24,11 @@ public class OwnedByBuilderFromOwnership extends BaseRelationshipBuilder<Ownersh
   @Nonnull
   @Override
   public List<GraphBuilder.RelationshipUpdates> buildRelationships(@Nonnull Urn urn, @Nonnull Ownership ownership) {
-    // currently only support OwnedBy Corpuser in models
     final List<OwnedBy> ownerList = ownership.getOwners()
-        .stream()
-        .filter(owner -> CORPUSER_URN_TYPE.equals(owner.getOwner().getEntityType()))
-        .map(owner -> new OwnedBy().setSource(urn).setDestination(owner.getOwner()).setType(owner.getType()))
-        .collect(Collectors.toList());
+      .stream()
+      .filter(owner -> CORPUSER_URN_TYPE.equals(owner.getOwner().getEntityType()) || CORPUSER_URN_TYPE.equals(owner.getOwner().getEntityType()))
+      .map(owner -> new OwnedBy().setSource(urn).setDestination(owner.getOwner()).setType(owner.getType()))
+      .collect(Collectors.toList());
 
     return Collections.singletonList(new GraphBuilder.RelationshipUpdates(ownerList, REMOVE_ALL_EDGES_FROM_SOURCE));
   }

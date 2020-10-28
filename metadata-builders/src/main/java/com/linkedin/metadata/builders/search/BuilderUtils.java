@@ -2,6 +2,7 @@ package com.linkedin.metadata.builders.search;
 
 import com.linkedin.common.CorpGroupUrnArray;
 import com.linkedin.common.AdevintaGroupUrnArray;
+// import com.linkedin.common.AdevintaOrganisationUrnArray;
 import com.linkedin.common.CorpuserUrnArray;
 import com.linkedin.common.DatasetUrnArray;
 import com.linkedin.common.Owner;
@@ -96,6 +97,17 @@ public final class BuilderUtils {
     return corpuserUrns.stream().map(urn -> urn.getUsernameEntity()).collect(Collectors.toCollection(StringArray::new));
   }
 
+
+  /**
+   * Given {@link CorpGroupUrnArray} return list of corp group names from each of the urns
+   *
+   * @param adevintaorganisationUrns {@link CorpGroupUrnArray}
+   * @return list of group names extracted from urns
+   */
+  // @Nonnull
+  // public static StringArray getAdevintaOrganisationnames(@Nonnull AdevintaOrganisationUrnArray adevintaorganisationUrns) {
+  //   return adevintaorganisationUrns.stream().map(urn -> urn.getOrganisationNameEntity()).collect(Collectors.toCollection(StringArray::new));
+  // }
 
   /**
    * Get normalized browse field by replacing special browse hiearchy seperator's with a replacement

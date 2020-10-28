@@ -1,0 +1,10 @@
+{
+  "query_string": {
+    "query": "$INPUT",
+    "fields": [
+      "name^2"
+    ],
+    "default_operator": "and",
+    "analyzer": "standard"
+  }
+}

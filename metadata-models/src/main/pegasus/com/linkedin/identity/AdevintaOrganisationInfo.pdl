@@ -1,0 +1,15 @@
+namespace com.linkedin.identity
+
+import com.linkedin.common.AdevintaOrganisationUrn
+
+/**
+ * an organisation in Adevinta
+ */
+@Aspect.EntityUrns = [ "com.linkedin.common.AdevintaOrganisationUrn" ]
+record AdevintaOrganisationInfo {
+
+  /**
+   * name of this organisation
+   */
+  name: string
+}

@@ -16,6 +16,8 @@ public class RegisteredIndexBuilders {
       Collections.unmodifiableSet(new HashSet<BaseIndexBuilder>() {
         {
           add(new CorpUserInfoIndexBuilder());
+          add(new AdevintaGroupIndexBuilder());
+          add(new AdevintaOrganisationIndexBuilder());
           add(new DataProcessIndexBuilder());
           add(new DatasetIndexBuilder());
         }

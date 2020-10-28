@@ -1,0 +1,24 @@
+namespace com.linkedin.common
+
+/**
+ * Adevinta organisation
+ */
+@java.class = "com.linkedin.common.urn.AdevintaOrganisationUrn"
+@validate.`com.linkedin.common.validator.TypedUrnValidator` = {
+  "accessible" : true,
+  "owningTeam" : "urn:li:internalTeam:storage",
+  "entityType" : "adevintaOrganisation",
+  "constructable" : true,
+  "namespace" : "li",
+  "name" : "AdevintaOrganisation",
+  "doc" : "Adevinta organisation",
+  "owners" : [ "urn:li:corpuser:fbar", "urn:li:corpuser:bfoo" ],
+  "fields" : [ {
+    "name" : "organisationName",
+    "doc" : "The name of the organisation.",
+    "type" : "string",
+    "maxLength" : 64
+  } ],
+  "maxLength" : 81
+}
+typeref AdevintaOrganisationUrn = string

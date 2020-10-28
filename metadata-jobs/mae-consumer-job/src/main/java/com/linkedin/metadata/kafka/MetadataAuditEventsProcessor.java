@@ -113,6 +113,7 @@ public class MetadataAuditEventsProcessor {
       BaseIndexBuilder indexBuilderForDoc = null;
       for (BaseIndexBuilder indexBuilder : RegisteredIndexBuilders.REGISTERED_INDEX_BUILDERS) {
         Class docType = indexBuilder.getDocumentType();
+        log.error("docType class: {}", docType.getClass());
         if (docType.isInstance(doc)) {
           indexBuilderForDoc = indexBuilder;
           break;
@@ -127,7 +128,9 @@ public class MetadataAuditEventsProcessor {
         String urn = indexBuilderForDoc.getDocumentType().getMethod("getUrn").invoke(doc).toString();
         elasticEvent.setId(URLEncoder.encode(urn.toLowerCase(), "UTF-8"));
       } catch (UnsupportedEncodingException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-        log.error("Failed to encode the urn with error ", e.toString());
+        log.error("Document type: {}", indexBuilderForDoc.getClass());
+        log.error("Failed to encode the urn with error: {}", e.toString());
+        log.error("Failed to encode the urn with error: {}", e.getStackTrace());
         continue;
       }
       elasticEvent.setActionType(ChangeType.UPDATE);

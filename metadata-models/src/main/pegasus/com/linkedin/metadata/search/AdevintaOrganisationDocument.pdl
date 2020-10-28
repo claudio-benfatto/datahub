@@ -1,0 +1,19 @@
+namespace com.linkedin.metadata.search
+
+import com.linkedin.common.AdevintaOrganisationUrn
+
+/**
+ * Data model for Adevinta Organisation search
+ */
+record AdevintaOrganisationDocument includes BaseDocument {
+
+  /**
+   * Urn for the Adevinta Organisation.
+   */
+  urn: AdevintaOrganisationUrn
+
+  /**
+   * Name of the Adevinta organisation
+   */
+  name: optional string
+}

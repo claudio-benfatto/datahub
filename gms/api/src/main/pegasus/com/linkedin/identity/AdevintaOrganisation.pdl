@@ -1,0 +1,12 @@
+namespace com.linkedin.identity
+
+/**
+ * Metadata for a adevinta organisation
+ */
+record AdevintaOrganisation includes AdevintaOrganisationKey {
+
+  /**
+   * Information of the adevinta organisation
+   */
+  info: optional AdevintaOrganisationInfo
+}
