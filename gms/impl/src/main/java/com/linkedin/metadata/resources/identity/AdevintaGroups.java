@@ -44,7 +44,7 @@ import static com.linkedin.metadata.restli.RestliConstants.*;
 @RestLiCollection(name = "adevintaGroups", namespace = "com.linkedin.identity", keyName = "adevintaGroup")
 public final class AdevintaGroups extends BaseSearchableEntityResource<
     // @formatter:off
-    AdevintaGroupKey,
+    ComplexResourceKey<AdevintaGroupKey, EmptyRecord>,
     AdevintaGroup,
     AdevintaGroupUrn,
     AdevintaGroupSnapshot,
@@ -82,16 +82,18 @@ public final class AdevintaGroups extends BaseSearchableEntityResource<
     return _esSearchDAO;
   }
 
-  @Override
-  @Nonnull
-  protected AdevintaGroupUrn toUrn(@Nonnull AdevintaGroupKey adevintaGroupKey) {
-    return new AdevintaGroupUrn(adevintaGroupKey.getName());
-  }
 
   @Override
   @Nonnull
-  protected AdevintaGroupKey toKey(@Nonnull AdevintaGroupUrn urn) {
-    return new AdevintaGroupKey().setName(urn.getGroupNameEntity());
+  protected AdevintaGroupUrn toUrn(@Nonnull ComplexResourceKey<AdevintaGroupKey, EmptyRecord> adevintaGroupKey) {
+    return new AdevintaGroupUrn(adevintaGroupKey.getKey().getName());
+  }
+
+
+  @Override
+  @Nonnull
+  protected ComplexResourceKey<AdevintaGroupKey, EmptyRecord> toKey(@Nonnull AdevintaGroupUrn urn) {
+    return new ComplexResourceKey<>(new AdevintaGroupKey().setName(urn.getGroupNameEntity()), new EmptyRecord());
   }
 
   @Override
@@ -116,6 +118,7 @@ public final class AdevintaGroups extends BaseSearchableEntityResource<
     return ModelUtils.newSnapshot(AdevintaGroupSnapshot.class, urn, aspects);
   }
 
+  
   @RestMethod.Get
   @Override
   @Nonnull
@@ -123,6 +126,7 @@ public final class AdevintaGroups extends BaseSearchableEntityResource<
       @QueryParam(PARAM_ASPECTS) @Optional @Nullable String[] aspectNames) {
     return super.get(key, aspectNames);
   }
+
 
   @RestMethod.BatchGet
   @Override
@@ -132,6 +136,7 @@ public final class AdevintaGroups extends BaseSearchableEntityResource<
       @QueryParam(PARAM_ASPECTS) @Optional @Nullable String[] aspectNames) {
     return super.batchGet(keys, aspectNames);
   }
+
 
   @RestMethod.GetAll
   @Nonnull

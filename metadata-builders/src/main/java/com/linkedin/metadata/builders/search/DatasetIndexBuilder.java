@@ -50,6 +50,7 @@ public class DatasetIndexBuilder extends BaseIndexBuilder<DatasetDocument> {
 
   @Nonnull
   private DatasetDocument getDocumentToUpdateFromAspect(@Nonnull DatasetUrn urn, @Nonnull Ownership ownership) {
+    log.error("These are the owners: {}", ownership);
     final StringArray owners = BuilderUtils.getCorpUserOwners(ownership);
     return new DatasetDocument()
         .setHasOwners(!owners.isEmpty())

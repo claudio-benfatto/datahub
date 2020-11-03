@@ -44,7 +44,7 @@ import static com.linkedin.metadata.restli.RestliConstants.*;
 @RestLiCollection(name = "adevintaOrganisations", namespace = "com.linkedin.identity", keyName = "adevintaOrganisation")
 public final class AdevintaOrganisations extends BaseSearchableEntityResource<
     // @formatter:off
-    AdevintaOrganisationKey,
+    ComplexResourceKey<AdevintaOrganisationKey, EmptyRecord>,
     AdevintaOrganisation,
     AdevintaOrganisationUrn,
     AdevintaOrganisationSnapshot,
@@ -82,17 +82,20 @@ public final class AdevintaOrganisations extends BaseSearchableEntityResource<
     return _esSearchDAO;
   }
 
-  @Override
-  @Nonnull
-  protected AdevintaOrganisationUrn toUrn(@Nonnull AdevintaOrganisationKey adevintaOrganisationKey) {
-    return new AdevintaOrganisationUrn(adevintaOrganisationKey.getName());
-  }
 
   @Override
   @Nonnull
-  protected AdevintaOrganisationKey toKey(@Nonnull AdevintaOrganisationUrn urn) {
-    return new AdevintaOrganisationKey().setName(urn.getOrganisationNameEntity());
+  protected AdevintaOrganisationUrn toUrn(@Nonnull ComplexResourceKey<AdevintaOrganisationKey, EmptyRecord> adevintaOrganisationKey) {
+    return new AdevintaOrganisationUrn(adevintaOrganisationKey.getKey().getName());
   }
+
+
+  @Override
+  @Nonnull
+  protected ComplexResourceKey<AdevintaOrganisationKey, EmptyRecord> toKey(@Nonnull AdevintaOrganisationUrn urn) {
+    return new ComplexResourceKey<>(new AdevintaOrganisationKey().setName(urn.getOrganisationNameEntity()), new EmptyRecord());
+  }
+
 
   @Override
   @Nonnull

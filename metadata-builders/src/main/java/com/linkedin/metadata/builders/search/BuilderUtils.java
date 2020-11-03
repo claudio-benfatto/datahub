@@ -8,6 +8,7 @@ import com.linkedin.common.DatasetUrnArray;
 import com.linkedin.common.Owner;
 import com.linkedin.common.Ownership;
 import com.linkedin.common.urn.CorpuserUrn;
+import com.linkedin.common.urn.AdevintaOrganisationUrn;
 import com.linkedin.common.urn.DatasetUrn;
 import com.linkedin.common.urn.Urn;
 import com.linkedin.data.template.StringArray;
@@ -46,6 +47,37 @@ public final class BuilderUtils {
           ldap.add(CorpuserUrn.createFromUrn(urn).getUsernameEntity());
         } catch (URISyntaxException e) {
           log.error("CorpuserUrn syntax error", e);
+        }
+      }
+    }
+
+    return ldap;
+  }
+
+
+    /**
+   * Get all corp users' ldap IDs
+   *
+   * @param ownership {@link Ownership} aspect obtained from a metadata snapshot type
+   * @return StringArray containing list of ldap IDs of corp users
+   */
+  @Nonnull
+  public static StringArray getAllOwners(@Nonnull Ownership ownership) {
+    final StringArray ldap = new StringArray();
+    for (Owner owner : ownership.getOwners()) {
+      Urn urn = owner.getOwner();
+      if (CorpuserUrn.ENTITY_TYPE.equals(urn.getEntityType())) {
+        try {
+          ldap.add(CorpuserUrn.createFromUrn(urn).getUsernameEntity());
+        } catch (URISyntaxException e) {
+          log.error("CorpuserUrn syntax error", e);
+        }
+      }
+      if (AdevintaOrganisationUrn.ENTITY_TYPE.equals(urn.getEntityType())) {
+        try {
+          ldap.add(AdevintaOrganisationUrn.createFromUrn(urn).getOrganisationNameEntity());
+        } catch (URISyntaxException e) {
+          log.error("AdevintaOrganisation syntax error", e);
         }
       }
     }

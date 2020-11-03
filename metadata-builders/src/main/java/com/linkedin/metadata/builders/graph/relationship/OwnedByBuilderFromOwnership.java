@@ -26,7 +26,7 @@ public class OwnedByBuilderFromOwnership extends BaseRelationshipBuilder<Ownersh
   public List<GraphBuilder.RelationshipUpdates> buildRelationships(@Nonnull Urn urn, @Nonnull Ownership ownership) {
     final List<OwnedBy> ownerList = ownership.getOwners()
       .stream()
-      .filter(owner -> CORPUSER_URN_TYPE.equals(owner.getOwner().getEntityType()) || CORPUSER_URN_TYPE.equals(owner.getOwner().getEntityType()))
+      .filter(owner -> CORPUSER_URN_TYPE.equals(owner.getOwner().getEntityType()) || ADEVINTA_ORG_URN_TYPE.equals(owner.getOwner().getEntityType()))
       .map(owner -> new OwnedBy().setSource(urn).setDestination(owner.getOwner()).setType(owner.getType()))
       .collect(Collectors.toList());
 

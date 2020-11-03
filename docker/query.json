@@ -1,5 +1,12 @@
-
 {
-"query" : "MATCH(n:`com.linkedin.metadata.entity.DatasetEntity`) RETURN n",
- "params" : {}
- }
+    "statements": [
+        {
+            "statement": "MATCH(n:`com.linkedin.metadata.entity.DatasetEntity`) RETURN n",
+            "parameters": {
+                "props": {
+                    "name": "My Node"
+                }
+            }
+        }
+    ]
+}

@@ -109,11 +109,13 @@ public class MetadataAuditEventsProcessor {
     }
 
     for (RecordTemplate doc : docs) {
+      log.error("Document to update {}...", doc);
       MCEElasticEvent elasticEvent = new MCEElasticEvent(doc);
       BaseIndexBuilder indexBuilderForDoc = null;
       for (BaseIndexBuilder indexBuilder : RegisteredIndexBuilders.REGISTERED_INDEX_BUILDERS) {
         Class docType = indexBuilder.getDocumentType();
-        log.error("docType class: {}", docType.getClass());
+        log.error("Index builder... {}", indexBuilder);
+        log.error("doc class: {}", doc.getClass());
         if (docType.isInstance(doc)) {
           indexBuilderForDoc = indexBuilder;
           break;
@@ -125,12 +127,17 @@ public class MetadataAuditEventsProcessor {
       elasticEvent.setIndex(indexBuilderForDoc.getDocumentType().getSimpleName().toLowerCase());
       elasticEvent.setType(DOC_TYPE);
       try {
+        log.error("I got here...");
         String urn = indexBuilderForDoc.getDocumentType().getMethod("getUrn").invoke(doc).toString();
+        log.error("This is the urn... {}", urn);
         elasticEvent.setId(URLEncoder.encode(urn.toLowerCase(), "UTF-8"));
-      } catch (UnsupportedEncodingException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+      } catch (UnsupportedEncodingException | NoSuchMethodException | IllegalAccessException  e) {
         log.error("Document type: {}", indexBuilderForDoc.getClass());
         log.error("Failed to encode the urn with error: {}", e.toString());
         log.error("Failed to encode the urn with error: {}", e.getStackTrace());
+        continue;
+      } catch (InvocationTargetException e) {
+        log.error("Failed to encode InvocationTargetException: {}", e.getCause());
         continue;
       }
       elasticEvent.setActionType(ChangeType.UPDATE);
